@@ -7,7 +7,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        CreateRoom("testroom");
+        Debug.Log("Connected to master server");
+        //CreateRoom("testroom");
     }
 
     public override void OnCreatedRoom()
