@@ -81,24 +81,20 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SlowDown(int playerId)
     {
-        float currentTime = 10;
-        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed * (float) 0.6;
-        StartTimer(10);
-        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed / (float)0.6;
+        Debug.Log($"SlowDown START for player {playerId} at t={Time.time}");
+
+        StartCoroutine(Countdown(playerId));
     }
 
-    private void StartTimer(int time)
+    private IEnumerator Countdown(int playerId)
     {
-        StartCoroutine(Countdown(time));
-    }
+        Debug.Log($"Applied slow: -> {players[playerId - 1].moveSpeed} at t={Time.time}");
 
-    private IEnumerator Countdown(int time)
-    {
-        while (time > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            time--;
-        }
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed * (float)0.2;
+        yield return new WaitForSeconds(5f);
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed / (float)0.2;
+        Debug.Log($"SlowDown END for player {playerId}; restored to {players[playerId - 1].moveSpeed} at t={Time.time}");
+
     }
 
     // is the player able to take the hat at this current time?
