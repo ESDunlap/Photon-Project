@@ -1,6 +1,7 @@
 using NUnit;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -13,7 +14,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     private float hatPickupTime; // the time the hat was picked up by the current holder
     [Header("Players")]
     public string playerPrefabLocation; // path in Resources folder to the Player prefab
+    public string[] powerupsPrefabLocation;
     public Transform[] spawnPoints; // array of all available spawn points
+    public Transform[] powerSpawnPoints;
     public PlayerController[] players; // array of all the players
     public int playerWithHat; // id of the player with the hat
     private int playersInGame; // number of players in the game
@@ -47,6 +50,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         PlayerController playerScript = playerObj.GetComponent<PlayerController>();
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer); //Made Changes
     }
+
+    void SpawnPowerup()
+    {
+        // instantiate the player across the network
+        GameObject spawnObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity); //Made Changes
+    }
     public PlayerController GetPlayer(int playerId)
     {
         return players.First(x => x.id == playerId);
@@ -67,6 +76,29 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerWithHat = playerId;
         GetPlayer(playerId).SetHat(true);
         hatPickupTime = Time.time;
+    }
+
+    [PunRPC]
+    public void SlowDown(int playerId)
+    {
+        float currentTime = 10;
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed * (float) 0.6;
+        StartTimer(10);
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed / (float)0.6;
+    }
+
+    private void StartTimer(int time)
+    {
+        StartCoroutine(Countdown(time));
+    }
+
+    private IEnumerator Countdown(int time)
+    {
+        while (time > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            time--;
+        }
     }
 
     // is the player able to take the hat at this current time?

@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 4838606197314961406}
   - component: {fileID: 4886841852192491324}
   - component: {fileID: 1428764885506144860}
+  - component: {fileID: 9191617345700503643}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -141,7 +142,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.35, y: 3.28, z: -5.37}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6793947307721807195}
@@ -207,7 +208,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489708502369396521}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8b1654bbcbf04bb448e8216ae838447d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -301,11 +302,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  moveSpeed: 5
+  moveSpeed: 1
   jumpForce: 5
   hatObject: {fileID: 2584279733892516889}
   curHatTime: 0
   rig: {fileID: 6948413164897016465}
+--- !u!135 &9191617345700503643
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489708502369396521}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2584279733892516889
 GameObject:
   m_ObjectHideFlags: 0

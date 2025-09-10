@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -41,7 +42,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         float x = Input.GetAxis("Horizontal") * moveSpeed;
         float z = Input.GetAxis("Vertical") * moveSpeed;
-        rig.linearVelocity = new Vector3(x, rig.linearVelocity.y, z);
+        //rig.linearVelocity = new Vector3(x, rig.linearVelocity.y, z);
+        rig.AddForce(transform.right * -z);
+        rig.AddForce(transform.forward * x);
     }
 
     void TryJump()
@@ -69,7 +72,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         hatObject.SetActive(hasHat);
     }
-    void OnCollisionEnter(Collision collision)
+
+    void OnTriggerEnter(Collider collision)
     {
         if (!photonView.IsMine)
             return;
@@ -86,6 +90,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                     GameManager.instance.photonView.RPC("GiveHat", RpcTarget.All, id, false);
                 }
             }
+        }
+        if (collision.gameObject.CompareTag("SpeedUp"))
+        {
+            GameManager.instance.photonView.RPC("SlowDown", RpcTarget.All, id);
         }
     }
 
