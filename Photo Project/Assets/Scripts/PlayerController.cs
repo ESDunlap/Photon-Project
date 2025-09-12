@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 GameManager.instance.photonView.RPC("WinGame", RpcTarget.All, id);
             }
         }
+    }
+
+    void FixedUpdate()
+    {
         if (photonView.IsMine)
         {
             Move();

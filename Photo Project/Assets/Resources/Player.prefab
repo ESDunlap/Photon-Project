@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  moveSpeed: 50
+  moveSpeed: 30
   jumpForce: 5
   hatObject: {fileID: 2584279733892516889}
   curHatTime: 0

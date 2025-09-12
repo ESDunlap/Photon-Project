@@ -98,9 +98,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"Applied slow: -> {players[playerId - 1].moveSpeed} at t={Time.time}");
 
-        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed * (float)0.8;
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed * (float)0.5;
         yield return new WaitForSeconds(5f);
-        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed / (float)0.8;
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed / (float)0.5;
         Debug.Log($"SlowDown END for player {playerId}; restored to {players[playerId - 1].moveSpeed} at t={Time.time}");
 
     }
