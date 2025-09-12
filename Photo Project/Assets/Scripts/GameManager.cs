@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         // instance
         instance = this;
+        StartCoroutine(SpawnPowerup());
     }
     void Start()
     {
@@ -51,10 +52,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer); //Made Changes
     }
 
-    void SpawnPowerup()
+    private IEnumerator SpawnPowerup()
     {
-        // instantiate the player across the network
-        GameObject spawnObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity); //Made Changes
+        while (true)
+        {
+            if (Random.Range(1, 2) == 1)
+            {
+                GameObject spawnObj = PhotonNetwork.Instantiate(powerupsPrefabLocation[Random.Range(0, powerupsPrefabLocation.Length)],
+                    powerSpawnPoints[Random.Range(0, powerSpawnPoints.Length)].position, Quaternion.identity);
+            }
+            yield return new WaitForSeconds(5f);
+        }
     }
     public PlayerController GetPlayer(int playerId)
     {
@@ -83,16 +91,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"SlowDown START for player {playerId} at t={Time.time}");
 
-        StartCoroutine(Countdown(playerId));
+        StartCoroutine(SpeedCountdown(playerId));
     }
 
-    private IEnumerator Countdown(int playerId)
+    private IEnumerator SpeedCountdown(int playerId)
     {
         Debug.Log($"Applied slow: -> {players[playerId - 1].moveSpeed} at t={Time.time}");
 
-        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed * (float)0.2;
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed * (float)0.8;
         yield return new WaitForSeconds(5f);
-        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed / (float)0.2;
+        players[playerId - 1].moveSpeed = players[playerId - 1].moveSpeed / (float)0.8;
         Debug.Log($"SlowDown END for player {playerId}; restored to {players[playerId - 1].moveSpeed} at t={Time.time}");
 
     }
