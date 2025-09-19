@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1869702877034351663}
   - component: {fileID: 6606769783821833480}
   - component: {fileID: 5568756567102516623}
+  - component: {fileID: -723334546111164943}
   m_Layer: 0
   m_Name: SpeedDown
   m_TagString: SpeedUp
@@ -146,3 +147,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!111 &-723334546111164943
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6348381675755509125}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0

@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
                 GameManager.instance.photonView.RPC("WinGame", RpcTarget.All, id);
             }
         }
+        if (photonView.IsMine)
+            if(Input.GetKeyUp(KeyCode.Space))
+                TryJump();
     }
 
     void FixedUpdate()
@@ -34,8 +37,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         if (photonView.IsMine)
         {
             Move();
-            if (Input.GetKeyDown(KeyCode.Space))
-                TryJump();
             // track the amount of time we're wearing the hat
             if (hatObject.activeInHierarchy)
                 curHatTime += Time.deltaTime;
